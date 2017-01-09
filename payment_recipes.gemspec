@@ -4,7 +4,24 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'payment_recipes/version'
 
 included_files = [
-  
+  'version',
+  'utils/action',
+  'utils/converters',
+  'utils/equality',
+  'paypal/settings',
+  'paypal/authorization',
+  'paypal/capture',
+  'paypal/payer',
+  'paypal/payment',
+  'paypal/refund',
+  'paypal/sale',
+  'paypal/transaction',
+  'paypal/action/capture_authorization',
+  'paypal/action/create_payment',
+  'paypal/action/execute_payment',
+  'paypal/action/refund_capture',
+  'paypal/action/refund_sale',
+  'paypal/action/void_authorization',
 ].map { |filename| "lib/payment_recipes/#{ filename }.rb" }
 
 included_files << 'lib/payment_recipes.rb'
