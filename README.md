@@ -149,7 +149,10 @@ action = PaymentRecipes::PayPal::REST::Action::CaptureAuthorization.prepare(auth
 action.execute
 
 puts action.authorization.capture
-# => <PaymentRecipes::PayPal::Capture total=$20.00 state=completed id=*****************>
+# => <PaymentRecipes::PayPal::Capture 
+#       total=$20.00 
+#       state=completed 
+#       id=*****************>
 ~~~
 
 
@@ -190,10 +193,16 @@ action = PaymentRecipes::PayPal::REST::Action::CreatePayment.prepare(
 action.execute
 
 puts action.payment
-# => <PaymentRecipes::PayPal::REST::Payment intent=sale state=approved id=PAY-************************>
+# => <PaymentRecipes::PayPal::REST::Payment 
+#       intent=sale 
+#       state=approved 
+#       id=PAY-************************>
 
 puts action.sale
-# => <PaymentRecipes::PayPal::REST::Sale total=$100.00 state=completed id=*****************>
+# => <PaymentRecipes::PayPal::REST::Sale 
+#       total=$100.00 
+#       state=completed 
+#       id=*****************>
 ~~~
 
 ### Create Payment (Action) - Authorization / Direct
@@ -233,11 +242,21 @@ action = PaymentRecipes::PayPal::REST::Action::CreatePayment.prepare(
 action.execute
 
 puts action.payment
-# => <PaymentRecipes::PayPal::REST::Payment intent=sale state=approved id=PAY-************************>
-# => <PaymentRecipes::PayPal::REST::Payment intent=authorize state=approved id=PAY-************************> 
+# => <PaymentRecipes::PayPal::REST::Payment 
+#       intent=sale 
+#       state=approved 
+#       id=PAY-************************>
+
+# => <PaymentRecipes::PayPal::REST::Payment 
+#       intent=authorize 
+#       state=approved 
+#       id=PAY-************************> 
 
 puts action.authorization
-# => <PaymentRecipes::PayPal::REST::Authorization total=$100.00 state=authorized id=*****************>
+# => <PaymentRecipes::PayPal::REST::Authorization 
+#       total=$100.00 
+#       state=authorized 
+#       id=*****************>
 
 authorization = action.authorization
 
@@ -271,19 +290,30 @@ action = PaymentRecipes::PayPal::REST::Action::CreatePayment.prepare(
 action.execute
 
 puts action.redirect_url
-# => https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-*****************
+# => https://www.sandbox.paypal.com/cgi-bin/webscr?
+#       cmd=_express-checkout&
+#       token=EC-*****************
 
-# https://localhost:3000/return?paymentId=PAY-************************&token=EC-*****************&PayerID=*************
+# https://localhost:3000/return?
+#       paymentId=PAY-************************&
+#       token=EC-*****************&
+#       PayerID=*************
 
 payment_id = "PAY-************************"
 payment = PaymentRecipes::PayPal::REST::Payment.find(payment_id)
 payer_id = "*************"
 
-action = PaymentRecipes::PayPal::REST::Action::ExecutePayment.prepare(payment: payment, payer_id: payer_id)
+action = PaymentRecipes::PayPal::REST::Action::ExecutePayment.prepare(
+           payment: payment, 
+           payer_id: payer_id)
+
 action.execute
 
 puts action.payment
-# => <PaymentRecipes::PayPal::Payment intent=sale state=approved id=PAY-************************>
+# => <PaymentRecipes::PayPal::Payment 
+#       intent=sale 
+#       state=approved 
+#       id=PAY-************************>
 ~~~
 
 
@@ -310,22 +340,36 @@ action = PaymentRecipes::PayPal::REST::Action::CreatePayment.prepare(
 action.execute
 
 puts action.redirect_url
-# => https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-*****************
+# => https://www.sandbox.paypal.com/cgi-bin/webscr?
+#       cmd=_express-checkout&
+#       token=EC-*****************
 
-# https://localhost:3000/return?paymentId=PAY-************************&token=EC-*****************&PayerID=*************
+# https://localhost:3000/return?
+#       paymentId=PAY-************************&
+#       token=EC-*****************&
+#       PayerID=*************
 
 payment_id = "PAY-************************"
 payment = PaymentRecipes::PayPal::REST::Payment.find(payment_id)
 payer_id = "*************"
 
-action = PaymentRecipes::PayPal::REST::Action::ExecutePayment.prepare(payment: payment, payer_id: payer_id)
+action = PaymentRecipes::PayPal::REST::Action::ExecutePayment.prepare(
+           payment: payment, 
+           payer_id: payer_id)
+
 action.execute
 
 puts action.payment
-# => <PaymentRecipes::PayPal::Payment intent=sale state=approved id=PAY-************************>
+# => <PaymentRecipes::PayPal::Payment 
+#       intent=sale 
+#       state=approved 
+#       id=PAY-************************>
 
 puts action.authorization
-# => <PaymentRecipes::PayPal::REST::Authorization total=$100.00 state=authorized id=*****************>
+# => <PaymentRecipes::PayPal::REST::Authorization 
+#       total=$100.00 
+#       state=authorized 
+#       id=*****************>
 
 authorization = action.authorization
 
@@ -333,10 +377,16 @@ action = PaymentRecipes::PayPal::REST::Action::CaptureAuthorization.prepare(auth
 action.execute
 
 puts action.authorization
-# => <PaymentRecipes::PayPal::REST::Authorization total=$100.00 state=captured id=*****************>
+# => <PaymentRecipes::PayPal::REST::Authorization 
+#       total=$100.00 
+#       state=captured 
+#       id=*****************>
 
 puts action.authorization.capture
-# => <PaymentRecipes::PayPal::REST::Capture total=$100.00 state=completed id=*****************>
+# => <PaymentRecipes::PayPal::REST::Capture 
+#       total=$100.00 
+#       state=completed 
+#       id=*****************>
 ~~~
 
 ### Refund Capture (Action)
@@ -345,13 +395,19 @@ puts action.authorization.capture
 capture_id = '*****************'
 capture = PaymentRecipes::PayPal::REST::Capture.find(capture_id)
 
-# => <PaymentRecipes::PayPal::REST::Capture total=$100.00 state=completed id=*****************>
+# => <PaymentRecipes::PayPal::REST::Capture 
+#       total=$100.00 
+#       state=completed 
+#       id=*****************>
 
 action = PaymentRecipes::PayPal::REST::Action::RefundCapture.prepare(capture: capture)
 action.execute
 
 action.capture
-# => <PaymentRecipes::PayPal::Capture total=$100.00 state=refunded id=*****************>
+# => <PaymentRecipes::PayPal::Capture 
+#       total=$100.00 
+#       state=refunded 
+#       id=*****************>
 ~~~
 
 ### Refund Sale (Action)
@@ -359,13 +415,19 @@ action.capture
 ~~~ ruby
 sale_id = '*****************'
 sale = PaymentRecipes::PayPal::REST::Sale.find(sale_id)
-# => <PaymentRecipes::PayPal::REST::Sale total=$100.00 state=completed id=*****************>
+# => <PaymentRecipes::PayPal::REST::Sale 
+#       total=$100.00 
+#       state=completed 
+#       id=*****************>
 
 action = PaymentRecipes::PayPal::REST::Action::RefundSale.prepare(sale: sale)
 action.execute
 
 action.sale
-# => <PaymentRecipes::PayPal::Sale total=$100.00 state=refunded id=*****************>
+# => <PaymentRecipes::PayPal::Sale 
+#       total=$100.00 
+#       state=refunded 
+#       id=*****************>
 ~~~
 
 ### Void Authorization (Action)
@@ -373,13 +435,19 @@ action.sale
 ~~~ ruby
 authorization_id = '*****************'
 authorization = PaymentRecipes::PayPal::REST::Authorization.find(authorization_id)
-# => <PaymentRecipes::PayPal::REST::Authorization total=$100.00 state=authorized id=*****************>
+# => <PaymentRecipes::PayPal::REST::Authorization 
+#       total=$100.00 
+#       state=authorized 
+#       id=*****************>
 
 action = PaymentRecipes::PayPal::REST::Action::VoidAuthorization.prepare(authorization: authorization)
 action.execute
 
 puts action.authorization
-# => <PaymentRecipes::PayPal::REST::Authorization total=$100.00 state=voided id=*****************> 
+# => <PaymentRecipes::PayPal::REST::Authorization 
+#       total=$100.00 
+#       state=voided 
+#       id=*****************> 
 ~~~
 
 ## Usage: PayPal SOAP
@@ -407,7 +475,11 @@ transaction_id = '*****************'
 transaction = PaymentRecipes::PayPal::SOAP::Transaction.find(transaction_id)
 
 puts transaction
-# => <PaymentRecipes::PayPal::SOAP::Transaction type=web-accept payment_type=instant payment_status=Completed id=*****************>
+# => <PaymentRecipes::PayPal::SOAP::Transaction 
+#       type=web-accept 
+#       payment_type=instant 
+#       payment_status=Completed 
+#       id=*****************>
 
 transaction.gross_amount
 # => #<Money fractional:100 currency:USD> 
@@ -470,7 +542,11 @@ puts action.response.transaction_id
 # => "*****************"
 
 puts action.transaction
-# =>  <PaymentRecipes::PayPal::SOAP::Transaction type=web-accept payment_type=instant payment_status=Completed id=*****************>
+# =>  <PaymentRecipes::PayPal::SOAP::Transaction 
+#       type=web-accept 
+#       payment_type=instant 
+#       payment_status=Completed 
+#       id=*****************>
 
 puts action.transaction.fee_amount
 # => #<Money fractional:33 currency:USD>
@@ -514,7 +590,10 @@ details = {
         :ItemCategory => 'Physical' }]
       }] } }
 
-action = PaymentRecipes::PayPal::SOAP::Action::CreateExpressCheckout.prepare(details: details, intent: :sale)
+action = PaymentRecipes::PayPal::SOAP::Action::CreateExpressCheckout.prepare(
+           details: details, 
+           intent: :sale)
+
 action.execute
 
 puts action.response.token
@@ -549,7 +628,11 @@ action = PaymentRecipes::PayPal::SOAP::Action::ExecuteExpressCheckout.prepare(
 action.execute
 
 puts action.transaction
-# => <PaymentRecipes::PayPal::SOAP::Transaction type=express-checkout payment_type=instant payment_status=Completed id=*****************>
+# => <PaymentRecipes::PayPal::SOAP::Transaction 
+#       type=express-checkout 
+#       payment_type=instant 
+#       payment_status=Completed 
+#       id=*****************>
 ~~~
 
 ### Perform Direct Payment (Action) - Authorization
@@ -585,7 +668,11 @@ puts action.response.transaction_id
 # => "*****************"
 
 puts action.transaction
-# =>  <PaymentRecipes::PayPal::SOAP::Transaction type=web-accept payment_type=instant payment_status=Pending [authorization] id=*****************>
+# =>  <PaymentRecipes::PayPal::SOAP::Transaction 
+#       type=web-accept 
+#       payment_type=instant 
+#       payment_status=Pending [authorization] 
+#       id=*****************>
 
 puts action.transaction.pending?
 # => true
@@ -629,14 +716,19 @@ details = {
         :ItemCategory => 'Physical' }]
       }] } }
 
-action = PaymentRecipes::PayPal::SOAP::Action::CreateExpressCheckout.prepare(details: details, intent: :authorize)
+action = PaymentRecipes::PayPal::SOAP::Action::CreateExpressCheckout.prepare(
+           details: details, 
+           intent: :authorize)
+
 action.execute
 
 puts action.response.token
 # => "EC-*****************"
 
 puts action.redirect_url
-# => https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-*****************
+# => https://www.sandbox.paypal.com/webscr?
+#      cmd=_express-checkout&
+#      token=EC-*****************
 ~~~
 
 ### Do Express Checkout (Action) - Authorization
@@ -664,16 +756,23 @@ action = PaymentRecipes::PayPal::SOAP::Action::ExecuteExpressCheckout.prepare(
 action.execute
 
 puts action.transaction
-# => <PaymentRecipes::PayPal::SOAP::Transaction type=express-checkout payment_type=instant payment_status=Pending [authorization] id=*****************>
+# => <PaymentRecipes::PayPal::SOAP::Transaction 
+#       type=express-checkout 
+#       payment_type=instant 
+#       payment_status=Pending [authorization] 
+#       id=*****************>
 ~~~
 
 ### Perform Capture (Action)
+
 ~~~ ruby
 authorization_id = "*****************"
 amount = { :currencyID => 'USD', :value => '1' }
 
-action = PaymentRecipes::PayPal::SOAP::Action::CaptureAuthorization.prepare(authorization_id: authorization_id,
-                                                                            amount: amount)
+action = PaymentRecipes::PayPal::SOAP::Action::CaptureAuthorization.prepare(
+           authorization_id: authorization_id,
+           amount: amount)
+
 action.execute
 
 puts action.response.success?
@@ -686,10 +785,18 @@ puts action.capture_id
 # => *****************
 
 puts action.authorization_transaction
-# => <PaymentRecipes::PayPal::SOAP::Transaction type=web-accept payment_type=instant payment_status=Completed id=*****************>
+# => <PaymentRecipes::PayPal::SOAP::Transaction 
+#       type=web-accept 
+#       payment_type=instant 
+#       payment_status=Completed 
+#       id=*****************>
 
 puts action.capture_transaction
-# => <PaymentRecipes::PayPal::SOAP::Transaction type=web-accept payment_type=instant payment_status=Completed id=*****************>
+# => <PaymentRecipes::PayPal::SOAP::Transaction 
+#       type=web-accept 
+#       payment_type=instant 
+#       payment_status=Completed 
+#       id=*****************>
 ~~~
 
 License
