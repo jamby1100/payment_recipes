@@ -12,6 +12,9 @@ module PaymentRecipes
             set_express_checkout
 
             get_express_checkout_url
+            get_express_checkout_alternative_redirect_url
+
+            express_checkout_redirect_url
           end
 
           def prepare_soap_api
@@ -68,7 +71,23 @@ module PaymentRecipes
 
           def redirect_url
             express_checkout_redirect_url
-          end 
+          end
+
+          def get_express_checkout_alternative_redirect_url
+            store(:express_checkout_alternative_redirect_url) do
+              paypal_base_url = if api.config.mode == "sandbox"
+                                  "https://www.sandbox.paypal.com"
+                                else
+                                  "https://www.paypal.com"
+                                end
+
+              "#{ paypal_base_url }/webapps/xoonboarding?token=#{ response.token }&useraction=commit"
+            end
+          end
+
+          def alternative_redirect_url
+            express_checkout_alternative_redirect_url
+          end
         end
       end
     end

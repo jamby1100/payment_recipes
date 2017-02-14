@@ -601,6 +601,9 @@ puts action.response.token
 
 puts action.redirect_url
 # => https://www.sandbox.paypal.com/webscr?cmd=_express-checkout&token=EC-*****************
+
+puts action.alternative_redirect_url
+# => https://www.sandbox.paypal.com/webapps/xoonboarding?token=EC-*****************&useraction=commit
 ~~~
 
 ### Do Express Checkout (Action) - Sale
@@ -729,6 +732,9 @@ puts action.redirect_url
 # => https://www.sandbox.paypal.com/webscr?
 #      cmd=_express-checkout&
 #      token=EC-*****************
+
+puts action.alternative_redirect_url
+# => "https://www.sandbox.paypal.com/webapps/xoonboarding?token=EC-*****************&useraction=commit"
 ~~~
 
 ### Do Express Checkout (Action) - Authorization
