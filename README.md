@@ -1,4 +1,4 @@
-Payment Recipes (payment_recipes) v 1.1.0
+Payment Recipes (payment_recipes) v 1.1.2
 =========================================
 
 Wrapper classes and utilities to speed up payment gateway integration and report generation. 
