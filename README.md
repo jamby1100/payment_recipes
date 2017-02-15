@@ -559,6 +559,7 @@ details = {
   :SetExpressCheckoutRequestDetails => {
     :ReturnURL => 'http://localhost:3000/merchant/do_express_checkout_payment',
     :CancelURL => 'http://localhost:3000/merchant/set_express_checkout',
+    :SolutionType => 'Sole',
     :PaymentDetails => [{
       :OrderTotal => {
         :currencyID => 'USD',
